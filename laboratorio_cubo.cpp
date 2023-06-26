@@ -4,13 +4,13 @@ float cubeAngleX = 0.0f; // Ángulo de rotación en el eje X
 float cubeAngleY = 0.0f; // Ángulo de rotación en el eje Y
 float cubeAngleZ = 0.0f; // Ángulo de rotación en el eje Z
 
-void display()
-{
-    glClearColor(0.8f, 0.9f, 1.0f, 1.0f); // Establece el color de fondo celestito claro
+void display() {
+    glClearColor(0.8f, 0.9f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    glTranslatef(0.0f, 0.0f, 0.0f); // Transladar el cubo al centro
 
     gluLookAt(0.0, 0.0, 5.0,  // Posición de la cámara
         0.0, 0.0, 0.0,  // Punto de referencia
@@ -20,9 +20,11 @@ void display()
     glRotatef(cubeAngleX, 1.0f, 0.0f, 0.0f);
     glRotatef(cubeAngleY, 0.0f, 1.0f, 0.0f);
     glRotatef(cubeAngleZ, 0.0f, 0.0f, 1.0f);
+
+    
+
     glBegin(GL_QUADS);
 
-    glTranslatef(0.0f, 0.0f, 0.0f); // Transladar el cubo al centro
     // Cara frontal
     glColor3f(0.0f, 1.0f, 0.0f); // Verde
     glVertex3f(-0.5f, -0.5f, -0.5f);
@@ -71,8 +73,7 @@ void display()
     glutSwapBuffers();
 }
 
-void reshape(int width, int height)
-{
+void reshape(int width, int height) {
     glViewport(0, 0, width, height);
 
     glMatrixMode(GL_PROJECTION);
@@ -80,26 +81,21 @@ void reshape(int width, int height)
     gluPerspective(45.0, (double)width / height, 1.0, 10.0);
 }
 
-void keyboard(unsigned char key, int x, int y)
-{
-    if (key == 'x' || key == 'X')
-    {
+void keyboard(unsigned char key, int x, int y) {
+    if (key == 'x' || key == 'X') {
         cubeAngleX += 5.0f; // Incrementa el ángulo de rotación en el eje X
-    }
-    else if (key == 'y' || key == 'Y')
-    {
+    } 
+    else if (key == 'y' || key == 'Y') {
         cubeAngleY += 5.0f; // Incrementa el ángulo de rotación en el eje Y
-    }
-    else if (key == 'z' || key == 'Z')
-    {
+    } 
+    else if (key == 'z' || key == 'Z') {
         cubeAngleZ += 5.0f; // Incrementa el ángulo de rotación en el eje Z
     }
 
     glutPostRedisplay();
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowSize(1000, 900);
